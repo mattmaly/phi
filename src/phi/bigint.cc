@@ -6,8 +6,17 @@ BigInt::BigInt(unsigned long initial_value) {
     mpz_init_set_ui(value_, initial_value);
 }
 
+BigInt::BigInt(const BigInt& other) {
+    mpz_init_set(value_, other.value_);
+}
+
 BigInt::~BigInt() {
     mpz_clear(value_);
+}
+
+BigInt& BigInt::operator=(const BigInt& other) {
+    mpz_set(value_, other.value_);
+    return *this;
 }
 
 std::string BigInt::ToString() const {

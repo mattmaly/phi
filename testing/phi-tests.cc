@@ -12,3 +12,17 @@ TEST_CASE("Construct a BigInt from an unsigned long") {
     BigInt large_value(4294967295);
     REQUIRE(large_value.ToString() == "4294967295");
 }
+
+TEST_CASE("Copy-construct a BigInt from another BigInt") {
+    BigInt value(43);
+    BigInt copied_value(value);
+    REQUIRE(copied_value.ToString() == "43");
+}
+
+TEST_CASE("Copy-assign a BigInt from another BigInt") {
+    BigInt value(43);
+    BigInt other_value(0);
+
+    other_value = value;
+    REQUIRE(other_value.ToString() == "43");
+}
