@@ -25,10 +25,26 @@ TEST_CASE("Copy-assign a BigInt from another BigInt") {
     REQUIRE(other_value.ToString() == "43");
 }
 
-TEST_CASE("Add BigInts to another") {
+TEST_CASE("Add BigInts") {
     BigInt value(43);
     BigInt other_value(41);
 
     value.Add(other_value);
     REQUIRE(value.ToString() == "84");
+}
+
+TEST_CASE("Multiply BigInts") {
+    BigInt value(43);
+    BigInt other_value(7);
+
+    value.MultiplyBy(other_value);
+    REQUIRE(value.ToString() == "301");
+}
+
+TEST_CASE("Divide BigInts") {
+    BigInt value(43);
+    BigInt other_value(7);
+
+    value.DivideBy(other_value);
+    REQUIRE(value.ToString() == "6");
 }

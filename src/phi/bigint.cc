@@ -23,6 +23,14 @@ void BigInt::Add(const BigInt& other) {
     mpz_add(value_, value_, other.value_);
 }
 
+void BigInt::MultiplyBy(const BigInt& other) {
+    mpz_mul(value_, value_, other.value_);
+}
+
+void BigInt::DivideBy(const BigInt& other) {
+    mpz_tdiv_q(value_, value_, other.value_);
+}
+
 std::string BigInt::ToString() const {
     // When passed a nullptr first argument, `mpz_get_str()` dynamically
     // allocates a char[] containing the text-formatted representation of

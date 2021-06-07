@@ -21,6 +21,13 @@ public:
     // Adds the value of `other` to this BigInt.
     void Add(const BigInt& other);
 
+    // Multiplies this BigInt by the value of `other`.
+    void MultiplyBy(const BigInt& other);
+
+    // Divides this BigInt by the value of `other`, truncating in case of a
+    // remainder (in the style of C++11-and-beyond integer division).
+    void DivideBy(const BigInt& other);
+
     // Returns a std::string containing the base-10 representation of this
     // BigInt.
     std::string ToString() const;
