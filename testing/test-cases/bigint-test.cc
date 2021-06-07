@@ -1,5 +1,3 @@
-#define CATCH_CONFIG_MAIN
-
 #include <string>
 
 #include "external-deps/catch2/catch.hpp"
