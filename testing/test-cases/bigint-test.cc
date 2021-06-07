@@ -24,3 +24,11 @@ TEST_CASE("Copy-assign a BigInt from another BigInt") {
     other_value = value;
     REQUIRE(other_value.ToString() == "43");
 }
+
+TEST_CASE("Add BigInts to another") {
+    BigInt value(43);
+    BigInt other_value(41);
+
+    value.Add(other_value);
+    REQUIRE(value.ToString() == "84");
+}

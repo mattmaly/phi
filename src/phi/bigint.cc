@@ -19,6 +19,10 @@ BigInt& BigInt::operator=(const BigInt& other) {
     return *this;
 }
 
+void BigInt::Add(const BigInt& other) {
+    mpz_add(value_, value_, other.value_);
+}
+
 std::string BigInt::ToString() const {
     // When passed a nullptr first argument, `mpz_get_str()` dynamically
     // allocates a char[] containing the text-formatted representation of

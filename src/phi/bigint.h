@@ -18,6 +18,9 @@ public:
     // Copy-assignment operator.
     BigInt& operator=(const BigInt& other);
 
+    // Adds the value of `other` to this BigInt.
+    void Add(const BigInt& other);
+
     // Returns a std::string containing the base-10 representation of this
     // BigInt.
     std::string ToString() const;
