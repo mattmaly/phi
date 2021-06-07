@@ -18,6 +18,9 @@ public:
     // Copy-assignment operator.
     BigInt& operator=(const BigInt& other);
 
+    // Assigns the given `value` to this BigInt, replacing its current value.
+    void Assign(unsigned long value);
+
     // Adds the value of `other` to this BigInt.
     void Add(const BigInt& other);
 

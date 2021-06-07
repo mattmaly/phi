@@ -19,6 +19,10 @@ BigInt& BigInt::operator=(const BigInt& other) {
     return *this;
 }
 
+void BigInt::Assign(unsigned long value) {
+    mpz_set_ui(value_, value);
+}
+
 void BigInt::Add(const BigInt& other) {
     mpz_add(value_, value_, other.value_);
 }

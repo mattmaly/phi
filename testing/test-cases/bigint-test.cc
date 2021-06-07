@@ -25,6 +25,12 @@ TEST_CASE("Copy-assign a BigInt from another BigInt") {
     REQUIRE(other_value.ToString() == "43");
 }
 
+TEST_CASE("Re-assign a BigInt a new integer value") {
+    BigInt value(43);
+    value.Assign(123);
+    REQUIRE(value.ToString() == "123");
+}
+
 TEST_CASE("Add BigInts") {
     BigInt value(43);
     BigInt other_value(41);
