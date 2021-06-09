@@ -2,6 +2,8 @@
 
 #include <numeric>
 
+#include "phi/util.h"
+
 std::vector<unsigned long> ComputeTotientRange(unsigned long n) {
     std::vector<unsigned long> totient_values;
     totient_values.resize(n + 1);
@@ -19,20 +21,6 @@ std::vector<unsigned long> ComputeTotientRange(unsigned long n) {
 
     return totient_values;
 }
-
-namespace {
-// Returns a^k.
-unsigned long ComputeIntegerPower(unsigned long a, unsigned long k) {
-    if (k == 0) {
-        return 1;
-    }
-    unsigned long result = a;
-    for (--k; k > 0; --k) {
-        result *= a;
-    }
-    return result;
-}
-}  // namespace
 
 unsigned long ComputeTotientOfPrimePower(unsigned long p, unsigned long k) {
     if (k == 0) {
