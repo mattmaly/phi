@@ -19,3 +19,45 @@ std::vector<unsigned long> ComputeTotientRange(unsigned long n) {
 
     return totient_values;
 }
+
+namespace {
+// Returns a^k.
+unsigned long ComputeIntegerPower(unsigned long a, unsigned long k) {
+    if (k == 0) {
+        return 1;
+    }
+    unsigned long result = a;
+    for (--k; k > 0; --k) {
+        result *= a;
+    }
+    return result;
+}
+}  // namespace
+
+unsigned long ComputeTotientOfPrimePower(unsigned long p, unsigned long k) {
+    if (k == 0) {
+        return 1;
+    }
+    return ComputeIntegerPower(p, k - 1) * (p - 1);
+}
+
+std::vector<unsigned long> ComputePreImageOfTotient(unsigned long totient) {
+    // Because phi(N) >= sqrt(N/2) [1], every pre-image x of totient is
+    // guaranteed to be at most 2*totient^2. Specifically, if x > 2*totient^2,
+    // then rearrangement yields sqrt(x/2) > totient, and thus phi(x) > totient.
+    //
+    // [1] - https://en.wikipedia.org/wiki/Euler%27s_totient_function
+    const unsigned long preimage_upper_bound = 2 * totient * totient;
+
+    // Compute phi(x) for every x in {1, ..., preimage_upper_bound}, and return
+    // the subset of values in that range for which phi(x) == totient.
+    const std::vector<unsigned long> totient_values =
+            ComputeTotientRange(preimage_upper_bound);
+    std::vector<unsigned long> preimage;
+    for (unsigned long x = 1; x < totient_values.size(); ++x) {
+        if (totient_values[x] == totient) {
+            preimage.push_back(x);
+        }
+    }
+    return preimage;
+}
