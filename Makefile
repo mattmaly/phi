@@ -3,6 +3,8 @@ default:
 test: build/phi-tests-main.o build/test-cases/bigint-test.o
 	g++ -Wall -std=c++20 -lgmp -I./src/ build/phi-tests-main.o build/test-cases/*.o src/phi/*.cc -o test
 	./test
+profile:
+	g++ -g -pg -Wall -std=c++20 -lgmp -I./src/ src/main.cc src/phi/*.cc -o main
 clean:
 	rm -f main test
 	rm -rf build/
