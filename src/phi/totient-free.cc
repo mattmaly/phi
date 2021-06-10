@@ -8,6 +8,8 @@
 #include "phi/totient.h"
 #include "phi/util.h"
 
+// TODO(issue #1): Move the below helper functions from the unnamed namespace
+// into util.{h, cc}.
 namespace {
 
 // Returns the smallest prime divisor of the given positive integer `n`.
