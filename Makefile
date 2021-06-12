@@ -1,5 +1,5 @@
 default:
-	g++ -Wall -std=c++20 -lgmp -I./src/ src/main.cc src/phi/*.cc -o main
+	g++ -O3 -Wall -std=c++20 -lgmp -I./src/ src/main.cc src/phi/*.cc -o main
 test: build/phi-tests-main.o build/test-cases/bigint-test.o
 	g++ -Wall -std=c++20 -lgmp -I./src/ build/phi-tests-main.o build/test-cases/*.o src/phi/*.cc -o test
 	./test
