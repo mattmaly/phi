@@ -1,7 +1,7 @@
 #include "phi/totient-free.h"
 
 #include <cmath>
-#include <iostream>
+#include <iostream>  // TODO remove?
 #include <numeric>
 #include <vector>
 
@@ -75,5 +75,53 @@ bool IsTotientFree(unsigned long n) {
             }
         }
     }
+    return true;
+}
+
+namespace {
+// TODO document
+std::vector<PrimePower> GetSubsetUsingBitVector(
+    const std::vector<PrimePower>& factors, const std::string& bit_vector) {
+    std::vector<PrimePower> subset; // TODO reserve size
+    for (unsigned long i = 0; i < bit_vector.size(); ++i) {
+        if (bit_vector[i] == '1') {
+            subset.push_back(factors[i]);
+        }
+    }
+    return subset;
+}
+}
+
+bool IsTotientFreeWithDegree(unsigned long n, unsigned long k) {
+    const std::vector<PrimePower> factors = GetPrimePowerFactors(n);
+    if (k >= factors.size()) {
+        return false;
+    }
+    std::string bit_vector(factors.size() - k, '0');
+    while (bit_vector.length() < factors.size()) {
+        bit_vector.push_back('1');
+    }
+    do {
+        const std::vector<PrimePower> factors_subset =
+                GetSubsetUsingBitVector(factors, bit_vector);
+        unsigned long subset_totient = 1;
+        unsigned long subset_product = 1;
+        for (const PrimePower& pp : factors_subset) {
+            subset_totient *= ComputeTotientOfPrimePower(pp.prime, pp.power);
+            subset_product *= pp.ComputeValue();
+        }
+        const unsigned long n_without_subset = n / subset_product;
+        for (unsigned long x : ComputePreImageOfTotient(subset_totient)) {
+            if (x != subset_product && std::gcd(x, n_without_subset) == 1) {
+                std::cout << "  Witness: ";
+                for (const auto& pp : factors_subset) {
+                    std::cout << "(" << pp.prime << " ^ " << pp.power << ") ";
+                }
+                std::cout << "with x = " << x << " and phi = " << subset_totient
+                        << std::endl << std::endl;
+                return false;
+            }
+        }
+    } while (std::next_permutation(bit_vector.begin(), bit_vector.end()));
     return true;
 }
