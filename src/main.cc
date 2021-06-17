@@ -13,10 +13,11 @@ int main(int argc, char** argv) {
     std::cout << "Test BigInt value: " << value.ToString() << std::endl;
 
     std::cout << "=== Totient-free numbers ===" << std::endl;
-    const std::vector<unsigned long> totient_values = ComputeTotientRange(10000);
+    TotientCache totient_cache;
+    totient_cache.Precompute(1000);
     std::vector<unsigned long> totient_free_numbers;
-    for (unsigned long i = 1; i < totient_values.size(); ++i) {
-        std::cout << "phi(" << i << ") = " << totient_values[i] << std::endl;
+    for (unsigned long i = 1; i <= totient_cache.MaxCachedInput(); ++i) {
+        std::cout << "phi(" << i << ") = " << totient_cache.Phi(i) << std::endl;
         if (IsTotientFree(i)) {
             totient_free_numbers.push_back(i);
             std::cout << i << " is totient-free." << std::endl;
