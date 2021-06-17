@@ -14,9 +14,9 @@ int main(int argc, char** argv) {
 
     std::cout << "=== Totient-free numbers ===" << std::endl;
     TotientCache totient_cache;
-    totient_cache.Precompute(1000);
+    totient_cache.Precompute(10000);
     std::vector<unsigned long> totient_free_numbers;
-    for (unsigned long i = 1; i <= totient_cache.MaxCachedInput(); ++i) {
+    for (unsigned long i = 1; i <= 1000; ++i) {
         std::cout << "phi(" << i << ") = " << totient_cache.Phi(i) << std::endl;
         if (IsTotientFree(i)) {
             totient_free_numbers.push_back(i);
@@ -25,9 +25,10 @@ int main(int argc, char** argv) {
     }
 
     std::cout << "=== Totient-free (degree-2) numbers ===" << std::endl;
-    for (unsigned long i : totient_free_numbers) {
+    // for (unsigned long i : totient_free_numbers) {
+    for (unsigned long i = 1; i <= 10000; ++i) {
         std::cout << "Checking " << i << "..." << std::endl;
-        if (IsTotientFreeWithDegree(i, 2)) {
+        if (IsTotientFreeWithDegree(i, 2, &totient_cache)) {
             std::cout << i << " is totient-free with degree 2." << std::endl;
         }
     }

@@ -1,6 +1,8 @@
 #ifndef PHI_TOTIENT_FREE
 #define PHI_TOTIENT_FREE
 
+#include "phi/totient.h"
+
 // Returns whether the positive integer `n` is totient-free.
 //
 // A positive integer n > 1 is defined to be "totient-free" if, for any prime
@@ -14,6 +16,7 @@ bool IsTotientFree(unsigned long n);
 // for any size-k subset S = {p_1^a_1, ..., p_k^a_k} of the set of prime power
 // divisors of p, the equation phi(x) = phi(product over S) has no nontrivial
 // solution x for which gcd(x, n/(product over S)) = 1.
-bool IsTotientFreeWithDegree(unsigned long n, unsigned long k);
+bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
+                             TotientCache* totient_cache);
 
 #endif  // PHI_TOTIENT_FREE

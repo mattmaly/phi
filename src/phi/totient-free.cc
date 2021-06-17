@@ -5,7 +5,6 @@
 #include <numeric>
 #include <vector>
 
-#include "phi/totient.h"
 #include "phi/util.h"
 
 // TODO(issue #1): Move the below helper functions from the unnamed namespace
@@ -92,7 +91,8 @@ std::vector<PrimePower> GetSubsetUsingBitVector(
 }
 }
 
-bool IsTotientFreeWithDegree(unsigned long n, unsigned long k) {
+bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
+                             TotientCache* totient_cache) {
     const std::vector<PrimePower> factors = GetPrimePowerFactors(n);
     if (k >= factors.size()) {
         return false;
@@ -101,6 +101,7 @@ bool IsTotientFreeWithDegree(unsigned long n, unsigned long k) {
     while (bit_vector.length() < factors.size()) {
         bit_vector.push_back('1');
     }
+    totient_cache->Precompute(n);
     do {
         const std::vector<PrimePower> factors_subset =
                 GetSubsetUsingBitVector(factors, bit_vector);
@@ -111,7 +112,7 @@ bool IsTotientFreeWithDegree(unsigned long n, unsigned long k) {
             subset_product *= pp.ComputeValue();
         }
         const unsigned long n_without_subset = n / subset_product;
-        for (unsigned long x : ComputePreImageOfTotient(subset_totient)) {
+        for (unsigned long x : totient_cache->InversePhi(subset_totient)) {
             if (x != subset_product && std::gcd(x, n_without_subset) == 1) {
                 std::cout << "  Witness: ";
                 for (const auto& pp : factors_subset) {
