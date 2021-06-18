@@ -86,6 +86,20 @@ bool IsTotientFree(unsigned long n) {
 }
 
 namespace {
+
+// Helper function to build a one-line string of every element of a given
+// vector of PrimePowers, separated by a ' ' delimiter.
+std::string PrimePowerVectorToString(const std::vector<PrimePower>& v) {
+    std::ostringstream buffer;
+    for (auto iter = v.begin(); iter != v.end(); ++iter) {
+        if (iter != v.begin()) {
+            buffer << " ";
+        }
+        buffer << iter->ToString();
+    }
+    return buffer.str();
+}
+
 // TODO document
 std::vector<PrimePower> GetSubsetUsingBitVector(
     const std::vector<PrimePower>& factors, const std::string& bit_vector) {
@@ -97,6 +111,7 @@ std::vector<PrimePower> GetSubsetUsingBitVector(
     }
     return subset;
 }
+
 }
 
 bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
@@ -122,12 +137,10 @@ bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
         const unsigned long n_without_subset = n / subset_product;
         for (unsigned long x : totient_cache->InversePhi(subset_totient)) {
             if (x != subset_product && std::gcd(x, n_without_subset) == 1) {
-                std::cout << "  Witness: ";
-                for (const auto& pp : factors_subset) {
-                    std::cout << pp.ToString() << " ";
-                }
-                std::cout << "with x = " << x << " and phi = " << subset_totient
-                        << std::endl << std::endl;
+                std::cout << "  Witness: "
+                          << PrimePowerVectorToString(factors_subset)
+                          << " with x = " << x << " and phi = "
+                          << subset_totient << std::endl << std::endl;
                 return false;
             }
         }
