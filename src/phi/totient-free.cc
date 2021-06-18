@@ -117,7 +117,10 @@ std::vector<PrimePower> GetSubsetUsingBitVector(
 bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
                              TotientCache* totient_cache) {
     const std::vector<PrimePower> factors = GetPrimePowerFactors(n);
+    std::cout << "  Factorization: " << PrimePowerVectorToString(factors)
+              << std::endl;
     if (k >= factors.size()) {
+        std::cout << "  Too few factors!" << std::endl;
         return false;
     }
     std::string bit_vector(factors.size() - k, '0');
