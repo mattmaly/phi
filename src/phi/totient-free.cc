@@ -120,7 +120,7 @@ bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
     std::cout << "  Factorization: " << PrimePowerVectorToString(factors)
               << std::endl;
     if (k >= factors.size()) {
-        std::cout << "  Too few factors!" << std::endl;
+        std::cout << "  Too few factors!" << std::endl << std::endl;
         return false;
     }
     std::string bit_vector(factors.size() - k, '0');
