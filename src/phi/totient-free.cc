@@ -3,6 +3,8 @@
 #include <cmath>
 #include <iostream>  // TODO remove?
 #include <numeric>
+#include <sstream>
+#include <string>
 #include <vector>
 
 #include "phi/util.h"
@@ -30,6 +32,12 @@ struct PrimePower {
 
     unsigned long ComputeValue() const {
         return ComputeIntegerPower(prime, power);
+    }
+
+    std::string ToString() const {
+        std::ostringstream buffer;
+        buffer << "(" << prime << " ^ " << power << ")";
+        return buffer.str();
     }
 };
 
@@ -116,7 +124,7 @@ bool IsTotientFreeWithDegree(unsigned long n, unsigned long k,
             if (x != subset_product && std::gcd(x, n_without_subset) == 1) {
                 std::cout << "  Witness: ";
                 for (const auto& pp : factors_subset) {
-                    std::cout << "(" << pp.prime << " ^ " << pp.power << ") ";
+                    std::cout << pp.ToString() << " ";
                 }
                 std::cout << "with x = " << x << " and phi = " << subset_totient
                         << std::endl << std::endl;
